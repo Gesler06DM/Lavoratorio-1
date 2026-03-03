@@ -14,12 +14,7 @@ public class Main {
 	        System.out.println("Bienvenido al sistema de gestión de estudiantes.");
 
 	        while (true) {
-	            System.out.println("\n1. Agregar estudiante");
-	            System.out.println("2. Mostrar lista de estudiantes");
-	            System.out.println("3. Calcular promedio de calificaciones");
-	            System.out.println("4. Mostrar estudiante con la calificación más alta");
-	            System.out.println("5. Salir");
-	            System.out.print("Seleccione una opción: ");
+	        	mostrarmenu();
 	      	            int opcion;
 	      	          if (scanner.hasNextInt()) {
 	      	            opcion = scanner.nextInt();
@@ -35,46 +30,68 @@ public class Main {
 	      	            break;
 	      	            case 2:  estudianteLista();
 	      	            break;
-	      	            case 3:  estudianteCalprom();
+	      	            case 3:  estudianteCalcprom();
 	      	            break;
 	      	            case 4:  estudianteMaxcalificacion();
 	      	            break;
 	      	            case 5:   System.out.println("Salida del programa ");
 	      	            return;
 	      	            default: System.out.println("Error opcion Incorrecta"); }
-	        }}       
-	      	            
+	        }}   
+		
+		
+		
+		public static void mostrarmenu() {
+		System.out.println("\n1. Agregar estudiante");
+        System.out.println("2. Mostrar lista de estudiantes");
+        System.out.println("3. Calcular promedio de calificaciones");
+        System.out.println("4. Mostrar estudiante con la calificación más alta");
+        System.out.println("5. Salir");
+        System.out.print("Seleccione una opción: ");
+		
+		} 	            
 // PARTE 1
-	      	          public static void estudianteAgregar() {
-	            
+		   public static void estudianteAgregar() {
+		System.out.print("Ingrese el nombre del estudiante: ");
+		String nombre = scanner.nextLine();
+        double calificacion = -1;
 
-	                System.out.print("Ingrese el nombre del estudiante: ");
-	                String nombre = scanner.nextLine();
+		while (calificacion < 0 || calificacion > 100) {
+		    try {
+		        System.out.print("Ingrese la calificación del estudiante: ");
+		        calificacion = Double.parseDouble(scanner.nextLine());
 
-	                System.out.print("Ingrese la calificación del estudiante: ");
-	                double calificacion = Double.parseDouble(scanner.nextLine());
+		        if (calificacion < 0 || calificacion > 100) {
+		            System.out.println("La calificación debe estar entre 0 y 100.");
+		        }
 
-	                estudiantes.add(nombre);
-	                calificaciones.add(calificacion);
+		    } catch (NumberFormatException e) {
+		        System.out.println("Ingrese un número válido.");
+		    }
+		}
 
-	                System.out.println("Estudiante agregado correctamente.");
-	                // NO SE QUE DECIS SI SE LE AGREGA UNA DECICION AQUI QUE NO DEJE QUE INGRESE CALIFICACIONES MENORES QUE 0 Y MAYOES QUE 100
-	            }
+		estudiantes.add(nombre);
+		calificaciones.add(calificacion);
+
+		System.out.println("Estudiante agregado correctamente.");
+
+}
+
 //PARTE 2
-	            	public static void estudianteLista() {      
+		public static void estudianteLista() {      
 
-	                if (estudiantes.isEmpty()) {
-	                    System.out.println("No hay estudiantes registrados.");
-	                } else {
-	                    System.out.println("\nLista de estudiantes:");
-	                    for (int i = 0; i < estudiantes.size(); i++) {
-	                        System.out.println(estudiantes.get(i) +
-	                                " - Calificación: " + calificaciones.get(i));
-	                    }
-	                }
-	                }
+            if (estudiantes.isEmpty()) {
+                System.out.println("No hay estudiantes registrados.");
+            } else {
+                System.out.println("\nLista de estudiantes:");
+                for (int i = 0; i < estudiantes.size(); i++) {
+                    System.out.println(estudiantes.get(i) +
+                            " - Calificación: " + calificaciones.get(i));
+                }
+            }
+            }
 //PARTE 3
-	             public static void estudianteCalprom() {
+	             public static void estudianteCalcprom() {
 
 	                if (calificaciones.isEmpty()) {
 	                    System.out.println("No hay calificaciones registradas.");
